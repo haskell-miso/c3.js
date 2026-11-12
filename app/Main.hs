@@ -44,7 +44,7 @@ app = (component () updateModel viewModel)
   }
 #endif
 -----------------------------------------------------------------------------
-updateModel :: Action -> Effect parent Model Action
+updateModel :: Action -> Effect () () Model Action
 updateModel = \case
   InitChart domRef -> io_
     [js| 
@@ -54,7 +54,7 @@ updateModel = \case
       }, 1000);
      |]
 -----------------------------------------------------------------------------
-githubStar :: View parent action
+githubStar :: View context props model action
 githubStar = H.iframe_
     [ P.title_ "GitHub"
     , P.height_ "30"
@@ -65,7 +65,7 @@ githubStar = H.iframe_
     ]
     []
 -----------------------------------------------------------------------------
-viewModel :: Model -> View Model Action
+viewModel :: Model -> View () () Model Action
 viewModel _ = H.div_
     [ P.class_ "chart-container" ]
     [ githubStar
